@@ -1,0 +1,12 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maruiya.mapper.TimeLineMapper">
+    <select id="queryTimeLines" resultType="TimeLine">
+        SELECT * FROM blog_timeline ORDER BY TIME DESC
+    </select>
+    <insert id="addTimeLine" parameterType="TimeLine">
+        insert into blog_timeline(id, user_id, description) values (#{id}, #{userId}, #{description})
+    </insert>
+</mapper>

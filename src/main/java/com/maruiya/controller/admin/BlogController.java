@@ -2,6 +2,7 @@ package com.maruiya.controller.admin;
 
 import com.maruiya.Util.DateToStringUtil;
 import com.maruiya.pojo.Blog;
+import com.maruiya.pojo.User;
 import com.maruiya.service.BlogService;
 import com.maruiya.service.TagService;
 import com.maruiya.service.TypeService;
@@ -33,11 +34,13 @@ public class BlogController {
     UserService userService;
 
     @PostMapping("/addBlog")
-    public String addBlog(Blog blog, HttpSession httpSession){
+    public String addBlog(Blog blog, Principal principal){
         //设置 博客状态
         blog.setStatus(1);
+
         //设置 用户id
-        blog.setUserId(1);
+        User user = userService.getUser(principal.getName());
+        blog.setUserId(user.getId());
 
         if (blog.isTop()){
             blog.setIsTop(1);
@@ -62,7 +65,7 @@ public class BlogController {
 
     @ResponseBody
     @PostMapping("/saveBlog")
-    public String saveBlog(Blog blog){
+    public String saveBlog(Blog blog, Principal principal){
         System.out.println(123123);
         System.out.println(0);
         blog.setStatus(0);
@@ -71,7 +74,9 @@ public class BlogController {
         }else {
             blog.setIsTop(0);
         }
-        blog.setUserId(1);
+        //设置 用户id
+        User user = userService.getUser(principal.getName());
+        blog.setUserId(user.getId());
         System.out.println("测试添加时直接保存："+blog.getId());
         if (blog.getId().equals("")){
             blog.setId(DateToStringUtil.getDateString());

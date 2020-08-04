@@ -1,0 +1,26 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 1200
+# thymleaf 配置
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    cache: false
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/myblog?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:/mapping/*.xml
+  type-aliases-package: com.maruiya.pojo
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+

@@ -5,12 +5,14 @@ import com.maruiya.pojo.Blog;
 import com.maruiya.pojo.TimeLine;
 import com.maruiya.service.BlogService;
 import com.maruiya.service.TimeLineService;
+import com.maruiya.service.UserService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,14 +29,21 @@ public class TimeLineAop {
     @Autowired
     BlogService blogService;
 
+    @Autowired
+    UserService userService;
+
     @Before("execution (* com.maruiya.controller.admin.BlogController.addBlog(..))")
     public void beforeAdd(JoinPoint joinPoint){
         TimeLine timeLine = new TimeLine();
         List<Object> result = Arrays.asList(joinPoint.getArgs());
 
+        System.out.println(result);
+
         Blog blog = (Blog) result.get(0);
 
-        blog.setUserId(1);
+        //设置userid
+        Principal principal = (Principal) result.get(1);
+        blog.setUserId(userService.getUser(principal.getName()).getId());
 
         if (blog.getId().equals("")){
             timeLine.setDescription("欢迎《"+blog.getTitle()+"》的到来");
@@ -55,7 +64,9 @@ public class TimeLineAop {
 
         Blog blog = (Blog) result.get(0);
 
-        blog.setUserId(1);
+        //设置userid
+        Principal principal = (Principal) result.get(1);
+        blog.setUserId(userService.getUser(principal.getName()).getId());
 
         timeLine.setDescription("将《"+blog.getTitle()+"》保存为草稿");
 

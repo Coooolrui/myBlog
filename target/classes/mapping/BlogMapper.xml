@@ -1,0 +1,65 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maruiya.mapper.BlogMapper">
+    <select id="queryBlogs" resultType="Blog">
+        select * from blog_blog
+    </select>
+    <insert id="addBlog" parameterType="Blog">
+        insert into blog_blog(id, user_id, title, content, description, first_pic, type_id, tag_id, status, is_top)
+        value(#{id}, #{userId}, #{title}, #{content}, #{description}, #{firstPic}, #{typeId}, #{tagId}, #{status}, #{isTop});
+    </insert>
+    <select id="queryBlogById" parameterType="String" resultType="Blog">
+        select * from blog_blog where id = #{id}
+    </select>
+    <update id="updateBlog" parameterType="Blog">
+        update blog_blog set title = #{title}, content = #{content}, description = #{description}, first_pic = #{firstPic}, type_id = #{typeId}, tag_id = #{tagId}, status = #{status}, is_top = #{isTop} where id = #{id}
+    </update>
+    <delete id="deleteBlog" parameterType="String">
+        delete from blog_blog where id = #{id};
+    </delete>
+
+    <resultMap id="BlogsAll" type="Blog">
+        <result column="id" property="id"></result>
+        <result column="user_id" property="userId"></result>
+        <result column="title" property="title"></result>
+        <result column="content" property="content"></result>
+        <result column="description" property="description"></result>
+        <result column="first_pic" property="firstPic"></result>
+        <result column="type_id" property="typeId"></result>
+        <result column="tag_id" property="tagId"></result>
+        <result column="status" property="status"></result>
+        <result column="views" property="views"></result>
+        <result column="is_top" property="isTop"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="update_time" property="updateTime"></result>
+        <result column="userName" property="userName"></result>
+
+        <association property="type" javaType="Type">
+            <result column="typeId" property="id"></result>
+            <result column="typeName" property="name"></result>
+        </association>
+        <association property="tag" javaType="Tag">
+            <result column="tagId" property="id"></result>
+            <result column="tagName" property="name"></result>
+        </association>
+    </resultMap>
+    <select id="queryBlogsToShow" resultMap="BlogsAll">
+        SELECT blog_blog.*, blog_tag.id tagId, blog_tag.name tagName, blog_type.id typeId, blog_type.name typeName, blog_user.name userName FROM blog_blog, blog_tag, blog_type, blog_user WHERE STATUS = 1 AND type_id = blog_type.id AND tag_id = blog_tag.id AND user_id = blog_user.id
+    </select>
+    <select id="queryBlogToShowById" resultMap="BlogsAll" parameterType="String">
+        SELECT blog_blog.*, blog_tag.id tagId, blog_tag.name tagName, blog_type.id typeId, blog_type.name typeName, blog_user.name userName FROM blog_blog, blog_tag, blog_type, blog_user WHERE STATUS = 1 AND type_id = blog_type.id AND tag_id = blog_tag.id AND user_id = blog_user.id and blog_blog.id = #{id}
+    </select>
+    <select id="queryBlogToShowBykey" resultMap="BlogsAll" parameterType="String">
+        SELECT blog_blog.*, blog_tag.id tagId, blog_tag.name tagName, blog_type.id typeId, blog_type.name typeName, blog_user.name userName
+        FROM blog_blog, blog_tag, blog_type, blog_user
+        WHERE STATUS = 1 AND type_id = blog_type.id AND tag_id = blog_tag.id AND user_id = blog_user.id AND (INSTR(CONCAT(title, content, description), #{key})>0 OR blog_tag.name = #{key})
+    </select>
+    <update id="addViewNum" parameterType="String">
+        update blog_blog set views = views+ 1 where id = #{id}
+    </update>
+    <select id="queryBlogToShowHot" resultType="Blog" parameterType="String">
+        SELECT * FROM blog_blog where status = 1 ORDER BY views DESC LIMIT 9
+    </select>
+</mapper>
