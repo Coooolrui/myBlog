@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>admin登录</title>
+    <link rel="stylesheet" th:href="@{/css/login.index.css}">
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+    <!-- logo设置 -->
+    <link rel="icon" type="image/png" th:href="@{https://gitee.com/maruiya/tuchuang/raw/master/blog/logo.png}"/>
+</head>
+<body>
+<script>
+
+    $(document).ready(function () {
+        var whei = $(window).width()
+        $("html").css({ fontSize: whei / 24 });
+        $(window).resize(function () {
+            var whei = $(window).width();
+            $("html").css({ fontSize: whei / 24 })
+        });
+    });
+</script>
+<div class="main">
+
+    <div class="header">
+        <div class="header-center fl">
+            <div class="header-title">
+                博客后台
+            </div>
+            <div class="header-img"></div>
+        </div>
+        <div class="header-bottom fl"></div>
+
+    </div>
+
+    <div class="content">
+        <div class="content-left">
+            <!--<img src="images/d.png" alt="">-->
+        </div>
+        <div class="content-right">
+            <form th:method="post" th:action="@{/login}">
+                <div class="right-infp">
+                    <div class="right-infp-name">
+                        <input type="text" name="username" placeholder="请输入用户名" maxlength="12" required="" value="" autocomplete="off">
+                    </div>
+                    <div class="right-infp-name">
+                        <input type="password" name="password" placeholder="请输入用户名" autocomplete="off">
+                    </div>
+
+                    <div class="right-infp-btn">
+                        <button class="btn" type="submit">登录</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

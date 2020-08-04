@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="www.lzqcode.com" />
+    <meta name="robots" content="all" />
+    <title>MaRuiYaのBlog</title>
+    <link rel="stylesheet" th:href="@{/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" />
+    <link rel="stylesheet" th:href="@{/css/master.css}" />
+    <link rel="stylesheet" th:href="@{/css/gloable.css}" />
+    <link rel="stylesheet" th:href="@{/css/nprogress.css}" />
+    <link rel="stylesheet" th:href="@{/css/blog.css}" />
+
+    <link type="text/css" th:href="@{/css/404.style.css}" rel="stylesheet" />
+    <!-- logo设置 -->
+    <link rel="icon" type="image/png" th:href="@{https://gitee.com/maruiya/tuchuang/raw/master/blog/logo.png}"/>
+</head>
+<body>
+    <div class="header">
+    </div>
+    <header class="gird-header">
+        <div class="header-fixed">
+            <div class="header-inner">
+                <a th:href="@{/maruiya/blog}" class="header-logo" id="logo">MaRuiYa</a>
+                <nav class="nav" id="nav">
+                    <ul>
+                        <li><a th:href="@{/maruiya/index}">首页</a></li>
+                        <li><a th:href="@{/maruiya/blog}">博客</a></li>
+                        <li><a th:href="@{/maruiya/filling}">归档</a></li>
+                        <li><a th:href="@{/maruiya/link}">友链</a></li>
+                        <li><a th:href="@{/admin123/login}">登录</a></li>
+                    </ul>
+                </nav>
+                <a href="/User/QQLogin" class="blog-user">
+                    <i class="fa fa-qq"></i>
+                </a>
+                <a class="phone-menu">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+
+    <div class="doc-container" id="doc-container">
+        <div class="container">
+            <h1 class="first-four">4</h1>
+            <div class="cog-wheel1">
+                <div class="cog1">
+                  <div class="top"></div>
+                  <div class="down"></div>
+                  <div class="left-top"></div>
+                  <div class="left-down"></div>
+                  <div class="right-top"></div>
+                  <div class="right-down"></div>
+                  <div class="left"></div>
+                  <div class="right"></div>
+              </div>
+            </div>
+            
+            <div class="cog-wheel2"> 
+              <div class="cog2">
+                  <div class="top"></div>
+                  <div class="down"></div>
+                  <div class="left-top"></div>
+                  <div class="left-down"></div>
+                  <div class="right-top"></div>
+                  <div class="right-down"></div>
+                  <div class="left"></div>
+                  <div class="right"></div>
+              </div>
+            </div>
+           <h1 class="second-four">4</h1>
+            <p class="wrong-para">Uh Oh! 找不到页面!</p>
+          </div>
+    </div>
+
+
+    <footer class="grid-footer">
+        <div class="footer-fixed">
+            <div class="copyright">
+                <div class="info">
+                    <div class="contact">
+                        <a href="javascript:void(0)" class="github"><i class="fa fa-github"></i></a>
+                        <a href="javascript:void(0)" class="qq" target="_blank" title="1436022537"><i class="fa fa-qq"></i></a>
+                        <a href="javascript:void(0)" class="email" target="_blank" title="1436022537@qq.com"><i class="fa fa-envelope"></i></a>
+                        <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
+                    </div>
+                    <p class="mt05">
+                         Copyright &copy; 2019-2020 牧码人の博客
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script th:src="@{/layui/layui.js}"></script>
+    <script th:src="@{/js/yss/gloable.js}"></script>
+    <script th:src="@{/js/plugins/nprogress.js}"></script>
+	<script>NProgress.start();</script>
+	<!-- 搜索框的js -->
+    <script th:src="@{/js/yss/article.js}"></script>
+    <script> 
+        window.onload = function () {
+            NProgress.done();
+        };
+    </script>
+
+    <script th:src="@{/js/404.gsap.min.js}"></script>
+    <script>
+        let t1 = gsap.timeline();
+        let t2 = gsap.timeline();
+        let t3 = gsap.timeline();
+        
+        t1.to(".cog1",
+        {
+        transformOrigin:"50% 50%",
+        rotation:"+=360",
+        repeat:-1,
+        ease:Linear.easeNone,
+        duration:8
+        });
+        
+        t2.to(".cog2",
+        {
+        transformOrigin:"50% 50%",
+        rotation:"-=360",
+        repeat:-1,
+        ease:Linear.easeNone,
+        duration:8
+        });
+        
+        t3.fromTo(".wrong-para",
+        {
+        opacity:0
+        },
+        {
+        opacity:1,
+        duration:1,
+        stagger:{
+            repeat:-1,
+            yoyo:true
+        }
+        });
+    </script>
+</body>
+</html>

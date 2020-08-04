@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width" />
+    <meta name="author" content="www.lzqcode.com" />
+    <meta name="robots" content="all" />
+    <title>MaRuiYaのBlog</title>
+    <link rel="stylesheet" th:href="@{/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" />
+    <link rel="stylesheet" th:href="@{/css/master.css}" />
+    <link rel="stylesheet" th:href="@{/css/gloable.css}" />
+    <link rel="stylesheet" th:href="@{/css/nprogress.css}" />
+    <link rel="stylesheet" th:href="@{/css/blog.css}" />
+    <!-- logo设置 -->
+    <link rel="icon" type="image/png" th:href="@{https://gitee.com/maruiya/tuchuang/raw/master/blog/logo.png}"/>
+</head>
+<body>
+    <div class="header">
+    </div>
+    <header class="gird-header">
+        <div class="header-fixed">
+            <div class="header-inner">
+                <a th:href="@{/maruiya/blog}" class="header-logo" id="logo">MaRuiYa</a>
+                <nav class="nav" id="nav">
+                    <ul>
+                        <li><a th:href="@{/admin123/blogList}">博客</a></li>
+                        <li><a th:href="@{/admin123/blogInput}">博+客</a></li>
+                        <li><a th:href="@{/admin123/typeList}">分类</a></li>
+                        <li><a th:href="@{/admin123/typeInput}">分+类</a></li>
+                        <li><a th:href="@{/admin123/tagList}">标签</a></li>
+                        <li><a th:href="@{/admin123/tagInput}">标+签</a></li>
+                        <li class="layui-nav-item" lay-unselect="">
+                            <a th:href="@{/logout}"><img th:src="${usr.pic}" class="layui-nav-img">退下</a>
+                        </li>
+                    </ul>
+                </nav>
+                <a class="phone-menu">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="layui-container" style="width: 70vw;border: 1px white solid; border-radius: 12px; opacity: 0.9; box-shadow:5px 5px 6px #333300; background-color: whitesmoke; margin-top: 15vh; height: 75vh;">
+        <br>
+        <div style="margin-top: 20px;">
+            <form class="layui-form layui-form-pane" th:action="@{/admin123/addTag}" method="post">
+                <div class="layui-form-item">
+                    <input hidden th:value="${tag.id}" name="id"/>
+                    <label class="layui-form-label">名称</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="name" autocomplete="off" placeholder="请输入标签名称" class="layui-input" th:value="${tag.name}">
+                        <div class="layui-btn-group" style="margin-top: 20px; float: right;">
+                            <button type="button" class="layui-btn-primary layui-btn" id="bkbtn" onclick="window.history.go(-1)">返回</button>
+                            <button type="submit" class="layui-btn-primary layui-btn" id="addbtn">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="grid-footer">
+        <div class="footer-fixed">
+            <div class="copyright">
+                <div class="info">
+                    <div class="contact">
+                        <a href="javascript:void(0)" class="github"><i class="fa fa-github"></i></a>
+                        <a href="javascript:void(0)" class="qq" target="_blank" th:title="${usr.qq}"><i class="fa fa-qq"></i></a>
+                        <a href="javascript:void(0)" class="email" target="_blank" th:title="${usr.qq}+'@qq.com'"><i class="fa fa-envelope"></i></a>
+                        <a href="javascript:void(0)" class="weixin"><i class="fa fa-weixin"></i></a>
+                    </div>
+                    <p class="mt05">
+                         Copyright &copy; 2019-2020 MaRuiYaのBlog
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script th:src="@{/layui/layui.js}"></script>
+    <script th:src="@{/js/yss/gloable.js}"></script>
+    <script th:src="@{/js/plugins/nprogress.js}"></script>
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script>NProgress.start();</script>
+ 	  <!-- <script src="../js/yss/article.js"></script> -->
+    <script> 
+        window.onload = function () {
+            NProgress.done();
+        };
+    </script>
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <script>
+        layui.use(['element', 'table'], function(){
+            var element = layui.element;
+
+        });
+    </script>
+</body>
